@@ -1,0 +1,15 @@
+{
+    "name": "Bridder",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "description": "Change the Twitter logo back to a blue bird.",
+    "icons": {
+      "128": "blue-bird.png"
+    },
+    "content_scripts": [{
+      "matches": ["https://twitter.com/*"],
+      "js": [
+        "content.js"
+      ]
+    }]
+  }
