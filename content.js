@@ -52,13 +52,27 @@
 
     const fixText = () => {
         setInterval(function () {
-            document.querySelectorAll('span').forEach(container => {
+            document.querySelectorAll('*').forEach(container => {
                 if (container.textContent === "© 2023 X Corp.") {
                     container.textContent = '© 2023 Twitter Inc.';
                 }
 
                 if (container.textContent === "Earn a living on X by letting anyone subscribe to you for monthly content.") {
                     container.textContent = 'Earn a living on Twitter by letting anyone subscribe to you for monthly content.';
+                }
+
+                if (container.textContent === "Post your reply!" && container.classList.contains("public-DraftEditorPlaceholder-inner")) {
+                    if (window.navigator.language == "ja") {
+                        container.textContent = container.textContent.replace("Post your reply!", "ツイートを返信")
+                    } else {
+                        container.textContent = container.textContent.replace("Post your reply!", "Tweet your reply")
+                    }
+                }
+            });
+
+            document.querySelectorAll('.css-901oao.css-16my406.r-1tl8opc.r-bcqeeo.r-qvutc0').forEach(container => {
+                if (container.textContent === "青") {
+                    container.textContent = 'Twitter Blue';
                 }
             });
         }, 1)
