@@ -58,7 +58,11 @@
                 }
 
                 if (container.textContent === "Earn a living on X by letting anyone subscribe to you for monthly content.") {
-                    container.textContent = 'Earn a living on Twitter by letting anyone subscribe to you for monthly content.';
+                    if (window.navigator.language == "ja") {
+                        container.textContent = 'サブスクライバー向けのコンテンツを毎月配信して、Twitterで生計を立てます。';
+                    } else {
+                        container.textContent = 'Earn a living on Twitter by letting anyone subscribe to you for monthly content.';
+                    }
                 }
 
                 if (container.textContent === "Post your reply!" && container.classList.contains("public-DraftEditorPlaceholder-inner")) {
@@ -73,6 +77,30 @@
             document.querySelectorAll('.css-901oao.css-16my406.r-1tl8opc.r-bcqeeo.r-qvutc0').forEach(container => {
                 if (container.textContent === "青") {
                     container.textContent = 'Twitter Blue';
+                }
+
+                if (container.textContent === "ポストする" || container.textContent === "Post" ) {
+                    if (window.navigator.language == "ja") {
+                        container.textContent = 'ツイートする';
+                    } else {
+                        container.textContent = 'Tweet';
+                    }
+                }
+
+                if (container.textContent.includes(" posts")) {
+                    if (window.navigator.language == "ja") {
+                        container.textContent = container.textContent.replace(" posts", " 件のツイート")
+                    } else {
+                        container.textContent = container.textContent.replace(" posts", " Tweets")
+                    }
+                }
+
+                if (container.textContent.includes("さんがポストしました") || container.textContent.includes("Posted") ) {
+                    if (window.navigator.language == "ja") {
+                        container.textContent = 'さんがツイートしました';
+                    } else {
+                        container.textContent = 'Tweeted';
+                    }
                 }
             });
         }, 1)
