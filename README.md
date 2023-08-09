@@ -6,3 +6,4 @@ Enable developer mode from the Chrome extensions page and drag and drop the zip 
 ## Features
 - Change the X in the title to Twitter
 - Changed all X icons to blue bird
+- Change other text (e.g., post)
