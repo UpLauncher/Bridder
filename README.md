@@ -13,7 +13,8 @@ Bridderをダウンロードする方法には、3つあります。
 少し難しいですが、最新のリリースをダウンロードできます。(※2)<br><br>
 <a href="https://github.com/raisandesu/Bridder/releases/latest">このページ</a>へアクセスして、「Assets」の中にある「Bridder v*.*.zip」をクリックしてダウンロードします。<br>
 ブラウザの拡張機能ページへアクセスし、デベロッパーモードをオンにして、ZIPファイルをドラッグ&ドロップします。
-### Tampermonkeyからダウンロード
+### Tampermonkeyからダウンロード(非推奨)
+**重要: Tampermonkey版のサポートを終了しました。<br>今後、新機能は追加されません。(メンテナンスは続行されます。)**<br>
 簡単に最新のリリースをダウンロードできます。(※3)<br>
 1. Tampermonkeyをダウンロードします。<br><br>
 <a href="https://chrome.google.com/webstore/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo"><img src="/assets/dl_chrome.svg" height="60"></a>
@@ -31,6 +32,6 @@ Bridderをダウンロードする方法には、3つあります。
 3. Pull requestsを作成します。
 4. 結果を待ちます。
 ## 注意点
-※1 - ストア側の審査があるため、新しいバージョンをリリースしてから2日から7日かかります。<br>
+※1 - ストア側の審査があるため、新しいバージョンをリリースしてから1時間から7日ほどかかります。<br>
 ※2 - 自動更新は利用できません。<br>
 ※3 - Safari版は有料です。
