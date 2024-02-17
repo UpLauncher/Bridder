@@ -11,13 +11,7 @@
    "host_permissions": [ "https://*.twitter.com/*" ],
    "icons": {
       "128": "assets/blue-bird.png"
-   },
-   "browser_specific_settings": {
-      "gecko": {
-        "id": "admin@uplauncher.xyz",
-        "strict_min_version": "109.0"
-      }
-    },    
+   },  
    "manifest_version": 3,
    "name": "__MSG_title__",
    "options_page": "src/settings.html",

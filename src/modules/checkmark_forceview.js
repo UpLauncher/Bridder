@@ -92,7 +92,7 @@ if (typeof browser === "undefined") {
     }
     request.onreadystatechange = function () {
       if (request.readyState != 4) {
-        console.error(
+        console.warn(
           "[BRIDDER : ERROR] IGNOREABLE | Request not ready: " +
             request.readyState
         );
