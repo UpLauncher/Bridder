@@ -21,7 +21,7 @@ Bridder をダウンロードする方法には、3 つあります。
 ### GitHub からダウンロード
 
 少し難しいですが、最新のリリースをダウンロードできます。(※2)<br><br>
-<a href="https://github.com/raisandesu/Bridder/releases/latest">このページ</a>へアクセスして、「Assets」の中にある「Bridder v*.*.zip」をクリックしてダウンロードします。<br>
+<a href="https://github.com/UpLauncher/Bridder/releases/">このページ</a>へアクセスして、「Assets」の中にある「Bridder v*.*.zip」をクリックしてダウンロードします。<br>
 ブラウザの拡張機能ページへアクセスし、デベロッパーモードをオンにして、ZIP ファイルをドラッグ&ドロップします。
 
 ### Tampermonkey からダウンロード(非推奨)
