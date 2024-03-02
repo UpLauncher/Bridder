@@ -183,10 +183,11 @@ if (typeof browser === "undefined") {
       "whitemode",
       "optimizeSidebar",
       "optimizeMore",
+      "featureFlags"
     ])
     .then((result) => {
-      // If the optimizeMore setting is null, set the default settings and reload the page
-      if (result.optimizeMore == null) {
+      // If the featureFlags setting is null, set the default settings and reload the page
+      if (result.featureFlags == null) {
         browser.storage.sync.set({
           enabled: true,
           text_mode: true,
@@ -200,6 +201,7 @@ if (typeof browser === "undefined") {
           optimizeSidebar: true,
           verifiedBlue: false,
           optimizeMore: true,
+          featureFlags: false,
         });
 
         window.location.reload();
@@ -207,7 +209,9 @@ if (typeof browser === "undefined") {
 
       // If the extension is enabled, run the corresponding functions based on the settings
       if (result.enabled) {
-        moveFeatureMenu();
+        if (result.featureFlags) {
+          moveFeatureMenu();
+        }
         if (result.tcoBypasser) {
           tcoBypasser();
         }

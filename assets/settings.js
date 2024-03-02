@@ -14,6 +14,7 @@ roal.load(() => {
   var forceView = true;
   var optimizeMore = true;
   var optimizeSidebar = true;
+  var featureFlags = false;
   browser.storage.sync
     .get([
       "text_mode",
@@ -27,6 +28,7 @@ roal.load(() => {
       "verifiedBlue",
       "optimizeMore",
       "optimizeSidebar",
+      "featureFlags"
     ])
     .then((result) => {
       text_state = result.text_mode;
@@ -40,6 +42,7 @@ roal.load(() => {
       optimizeMore = result.optimizeMore;
       verifiedBlue = result.verifiedBlue;
       optimizeSidebar = result.optimizeSidebar;
+      featureFlags = result.featureFlags;
 
       goNext();
     });
@@ -61,6 +64,12 @@ roal.load(() => {
       roal.el("#optimizeMore").setChecked(false);
     } else {
       roal.el("#optimizeMore").setChecked(true);
+    }
+
+    if (featureFlags == false) {
+      roal.el("#FeatureFlags").setChecked(false);
+    } else {
+      roal.el("#FeatureFlags").setChecked(true);
     }
 
     if (white_checkmark == false) {
@@ -139,6 +148,10 @@ roal.load(() => {
 
     roal.el("#optimizeMore").click(() => {
       browser.storage.sync.set({ optimizeMore: roal.el("#optimizeMore").checked });
+    });
+
+    roal.el("#FeatureFlags").click(() => {
+      browser.storage.sync.set({ featureFlags: roal.el("#FeatureFlags").checked });
     });
 
     roal.el("#white_checkmark").click(() => {
