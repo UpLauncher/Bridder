@@ -24,6 +24,8 @@ if (typeof browser === "undefined") {
             if (
               element.textContent == "プレミアム" ||
               element.textContent == "プレミアム+にアップグレード" ||
+              element.textContent == "プレミアムプラスにアップグレード" ||
+              element.textContent == "Xプレミアムプラスにアップグレード" ||
               element.textContent == "プレミアムプラス"
             ) {
               element.textContent = element.textContent.replace(
@@ -33,7 +35,10 @@ if (typeof browser === "undefined") {
               element.textContent = element.textContent.replace("プラス", "+");
               element.parentNode.parentNode
                 .querySelectorAll("path")
-                .forEach((container) => {
+                .forEach((container) => { 
+                  if (element.closest("a.css-175oi2r.r-6koalj.r-eqz5dr.r-16y2uox.r-1habvwh.r-oyd9sg.r-13qz1uu.r-1ny4l3l.r-1loqt21").getAttribute("aria-label") != "プレミアム") {
+                    return;
+                  }
                   container.setAttribute(
                     "d",
                     "M16.5 3H2v18h15c3.038 0 5.5-2.46 5.5-5.5 0-1.4-.524-2.68-1.385-3.65-.08-.09-.089-.22-.023-.32.574-.87.908-1.91.908-3.03C22 5.46 19.538 3 16.5 3Zm-.796 5.99c.457-.05.892-.17 1.296-.35-.302.45-.684.84-1.125 1.15.004.1.006.19.006.29 0 2.94-2.269 6.32-6.421 6.32-1.274 0-2.46-.37-3.459-1 .177.02.357.03.539.03 1.057 0 2.03-.35 2.803-.95-.988-.02-1.821-.66-2.109-1.54.138.03.28.04.425.04.206 0 .405-.03.595-.08-1.033-.2-1.811-1.1-1.811-2.18v-.03c.305.17.652.27 1.023.28-.606-.4-1.004-1.08-1.004-1.85 0-.4.111-.78.305-1.11 1.113 1.34 2.775 2.22 4.652 2.32-.038-.17-.058-.33-.058-.51 0-1.23 1.01-2.22 2.256-2.22.649 0 1.235.27 1.647.7.514-.1.997-.28 1.433-.54-.168.52-.526.96-.992 1.23Z"
@@ -96,90 +101,7 @@ if (typeof browser === "undefined") {
       document
         .querySelectorAll("span.css-1qaijid.r-bcqeeo.r-qvutc0.r-1tl8opc")
         .forEach((container) => {
-          try {
-            if (
-              container
-                .closest(".css-1dbjc4n.r-6gpygo.r-14gqq1x")
-                .getAttribute("data-testid") == "UserName"
-            )
-              return;
-          } catch {}
 
-          try {
-            if (
-              container
-                .closest(
-                  ".css-1rynq56.r-dnmrzs.r-1udh08x.r-3s2u2q.r-bcqeeo.r-qvutc0.r-1tl8opc.r-adyw6z.r-135wba7.r-b88u0q.r-1vvnge1"
-                )
-                .getAttribute("role") == "heading"
-            )
-              return;
-          } catch {}
-
-          try {
-            if (
-              container
-                .closest(
-                  ".css-175oi2r.r-150rngu.r-yfoy6g.r-zchlnj.r-1rnoaur.r-1r851ge.r-u8s1d.r-1d2f490.r-ipm5af.r-1xfd6ze.r-xnswec.r-8fhv3p.r-h3f8nf"
-                )
-                .getAttribute("role") == "typeaheadDropdown-3"
-            )
-              return;
-          } catch {}
-
-          try {
-            if (
-              container
-                .closest(".css-175oi2r.r-ymttw5.r-1f1sjgu.r-1loqt21.r-1ny4l3l")
-                .getAttribute("data-testid") == "UserCell" ||
-              container
-                .closest(".css-175oi2r.r-ymttw5.r-1f1sjgu.r-1loqt21.r-1ny4l3l")
-                .getAttribute("data-testid") == "TypeaheadUser"
-            )
-              return;
-          } catch {}
-
-          try {
-            if (
-              container
-                .closest(".css-1rynq56.r-8akbws.r-krxsd3.r-dnmrzs")
-                .getAttribute("data-testid") == "tweetText"
-            )
-              return;
-          } catch {}
-
-          try {
-            if (
-              container
-                .closest(".css-1rynq56.r-8akbws.r-krxsd3.r-dnmrzs")
-                .getAttribute("data-testid") == "tweetText"
-            )
-              return;
-          } catch {}
-
-          try {
-            if (
-              container
-                .closest(
-                  ".css-1qaijid.r-8akbws.r-krxsd3.r-dnmrzs.r-1udh08x.r-bcqeeo.r-qvutc0.r-1tl8opc.r-n6v787.r-1cwl3u0.r-b88u0q"
-                )
-                .getAttribute("data-testid") == "socialContext"
-            ) {
-            }
-          } catch {
-            try {
-              if (container.closest("article")) return;
-            } catch {}
-          }
-
-          try {
-            if (
-              container
-                .closest(".css-175oi2r.r-g6ijar")
-                .getAttribute("data-testid") == "activeRoute"
-            )
-              return;
-          } catch {}
 
           if (
             (container.textContent === "Premium" ||
@@ -357,7 +279,7 @@ if (typeof browser === "undefined") {
             container.textContent = "さんがツイートしました";
           }
         });
-    }, 300);
+    }, 1);
   };
 
   const fixTitle = () => {
@@ -382,13 +304,14 @@ if (typeof browser === "undefined") {
         var replaceX = replaceUser.replace("Xユーザーの", "");
         document.title = replaceX;
       }
-    }, 300);
+    }, 1);
   };
 
   browser.storage.sync.get(["enabled", "text_mode"]).then((result) => {
-    if (result.enabled && result.text_mode) {
+    console.log("RESPOSNE")
+    //if (result.enabled && result.text_mode) {
       fixText();
       fixTitle();
-    }
+    //}
   });
 })();

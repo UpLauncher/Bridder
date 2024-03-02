@@ -34,12 +34,24 @@ if (typeof browser === "undefined") {
     try {
       document.getElementById("FSBB_base").remove();
     } catch (e) {}
-    
+
     if (
       isKeyExists(
         parse_data["data"]["user"]["result"]["verification_info"]["reason"]
       )
     ) {
+      if (
+        parse_data["data"]["user"]["result"]["verification_info"]["reason"][
+          "description"
+        ]["text"] ==
+        "このアカウントは、Xが公式に認証している組織アカウントです。詳細はこちら"
+      ) {
+        console.info(
+          "[BRIDDER : INFO] This user verified with golden checkmark (Check not passed)"
+        );
+        return;
+      }
+
       if (parse_data["data"]["user"]["result"]["is_blue_verified"] == false) {
         console.info(
           "[BRIDDER : INFO] This user is verified and the checkmark is hidden. (Check passed)"

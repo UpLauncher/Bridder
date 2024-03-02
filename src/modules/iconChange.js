@@ -43,7 +43,14 @@ if (typeof browser === "undefined") {
         }
       } else {
         if (path) {
-          path.style.color = "rgb(29, 155, 240)";
+          if (
+            document.body.style.backgroundColor == "rgb(21, 32, 43)" ||
+            document.body.style.backgroundColor == "rgb(0, 0, 0)"
+          ) {
+            path.style.color = "#fff";
+          } else {
+            path.style.color = "rgb(29, 155, 240)";
+          }
           path.setAttribute("d", oldLogo);
         }
       }
@@ -98,7 +105,14 @@ if (typeof browser === "undefined") {
       );
       const path = container.querySelector(`path[d='${documentLogo}']`);
       if (path) {
-        path.style.fill = "rgb(29, 155, 240)";
+        if (
+          document.body.style.backgroundColor == "rgb(21, 32, 43)" ||
+          document.body.style.backgroundColor == "rgb(0, 0, 0)"
+        ) {
+          path.style.color = "#fff";
+        } else {
+          path.style.color = "rgb(29, 155, 240)";
+        }
         path.setAttribute("d", oldLogo);
       }
       if (filter) {

@@ -3,7 +3,7 @@
       "default_popup": "src/popup.html"
    },
    "content_scripts": [ {
-      "js": [ "src/content.js", "src/modules/checkmark_forceview.js", "src/modules/iconChange.js", "src/modules/tweetsource_return.js" ],
+      "js": [ "src/content.js", "src/modules/checkmark_forceview.js", "src/modules/checkmark_forceview_label.js", "src/modules/iconChange.js", "src/modules/tweetsource_return.js", "src/modules/checkmark_utility.js", "src/modules/textChange.js" ],
       "matches": [ "https://*.twitter.com/*" ]
    } ],
    "default_locale": "ja",

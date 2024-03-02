@@ -12,6 +12,7 @@ roal.load(() => {
   var blue_delete = false;
   var verifiedBlue = false;
   var forceView = true;
+  var optimizeMore = true;
   var optimizeSidebar = true;
   browser.storage.sync
     .get([
@@ -24,7 +25,8 @@ roal.load(() => {
       "blue_delete",
       "forceView",
       "verifiedBlue",
-      "optimizeSidebar"
+      "optimizeMore",
+      "optimizeSidebar",
     ])
     .then((result) => {
       text_state = result.text_mode;
@@ -35,6 +37,7 @@ roal.load(() => {
       whitemode = result.whitemode;
       blue_delete = result.blue_delete;
       forceView = result.forceView;
+      optimizeMore = result.optimizeMore;
       verifiedBlue = result.verifiedBlue;
       optimizeSidebar = result.optimizeSidebar;
 
@@ -52,6 +55,12 @@ roal.load(() => {
       roal.el("#icon_mode").setChecked(false);
     } else {
       roal.el("#icon_mode").setChecked(true);
+    }
+
+    if (optimizeMore == false) {
+      roal.el("#optimizeMore").setChecked(false);
+    } else {
+      roal.el("#optimizeMore").setChecked(true);
     }
 
     if (white_checkmark == false) {
@@ -88,7 +97,7 @@ roal.load(() => {
 
       browser.storage.sync.set({
         white_checkmark: false,
-        wc_org: false
+        wc_org: false,
       });
       roal.el("#verifiedBlue").setChecked(true);
     }
@@ -126,6 +135,10 @@ roal.load(() => {
 
     roal.el("#icon_mode").click(() => {
       browser.storage.sync.set({ icon_mode: roal.el("#icon_mode").checked });
+    });
+
+    roal.el("#optimizeMore").click(() => {
+      browser.storage.sync.set({ optimizeMore: roal.el("#optimizeMore").checked });
     });
 
     roal.el("#white_checkmark").click(() => {
@@ -173,7 +186,6 @@ roal.load(() => {
       });
     });
 
-    
     roal.el("#OptimizeSidebar").click(() => {
       browser.storage.sync.set({
         optimizeSidebar: roal.el("#OptimizeSidebar").checked,
@@ -189,7 +201,7 @@ roal.load(() => {
         browser.storage.sync.set({
           white_checkmark: false,
           wc_org: false,
-          verifiedBlue: false
+          verifiedBlue: false,
         });
 
         roal.el("#white_checkmark").setDisabled(true);
