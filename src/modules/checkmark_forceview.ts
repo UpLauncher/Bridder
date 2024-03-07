@@ -160,13 +160,11 @@
         ).length
       ) {
         var CurrentURL = location.href;
-        if (CurrentURL.includes("twitter.com/")) {
-          var st_index = CurrentURL.indexOf("r.com/") + 6;
-          var status_id_str = CurrentURL.slice(st_index);
-          if (lastName == status_id_str) return;
-          lastName = status_id_str;
-          GetVerifiedBadge(status_id_str);
-        }
+        var st_index = CurrentURL.indexOf("r.com/") + 6;
+        var status_id_str = CurrentURL.slice(st_index);
+        if (lastName == status_id_str) return;
+        lastName = status_id_str;
+        GetVerifiedBadge(status_id_str);
       }
     }, 300);
   };
