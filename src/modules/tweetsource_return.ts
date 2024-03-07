@@ -1,13 +1,9 @@
-if (typeof browser === "undefined") {
-  var browser = chrome;
-}
-
 (function () {
   "use strict";
 
   var LastTweetID = "";
 
-  function ShowLabel(Source) {
+  function ShowLabel(Source: HTMLElement) {
     var labelField = document.getElementsByClassName(
       "css-175oi2r r-1d09ksm r-18u37iz r-1wbh5a2 r-1471scf"
     );
@@ -16,15 +12,23 @@ if (typeof browser === "undefined") {
         var base = document.createElement("span");
         base.setAttribute("id", "RTSL_base");
         labelField[0].appendChild(base);
-        Incorporate(document.getElementById("RTSL_base"));
+        const baseElement = document.getElementById("RTSL_base");
+        if (baseElement) {
+          Incorporate(baseElement);
+        }
       } else {
         let base = document.getElementById("RTSL_base");
-        base.innerHTML = "";
-        Incorporate(document.getElementById("RTSL_base"));
+        if (base) {
+          base.innerHTML = "";
+          const baseElement = document.getElementById("RTSL_base");
+          if (baseElement) {
+            Incorporate(baseElement);
+          }
+        }
       }
     }
 
-    function Incorporate(base_ele) {
+    function Incorporate(base_ele: HTMLElement) {
       let body = document.body;
       let style = window.getComputedStyle(body);
       let colorvalue = style.getPropertyValue("background-color");
@@ -67,11 +71,16 @@ if (typeof browser === "undefined") {
       var div = document.createElement("div");
       div.style.display = "none";
       div.id = "sourcetmp";
-      div.innerHTML = Source;
+      div.innerHTML = Source.toString();
       document.body.appendChild(div);
-      let sourceLabel = document
-        .getElementById("sourcetmp")
-        .getElementsByTagName("a")[0].textContent;
+      let sourceLabel = "";
+      const sourcetmpElement = document.getElementById("sourcetmp");
+      if (sourcetmpElement) {
+        const anchorElement = sourcetmpElement.getElementsByTagName("a")[0];
+        if (anchorElement) {
+          sourceLabel = anchorElement.textContent || "";
+        }
+      }
       document.body.removeChild(div);
       var sourcelabelfield = document.createElement("a");
       sourcelabelfield.href =
@@ -97,8 +106,8 @@ if (typeof browser === "undefined") {
   }
 
   //Return Tweet Label
-  function GetTweetSource(tweetID) {
-    function isKeyExists(obj, key) {
+  function GetTweetSource(tweetID: string) {
+    function isKeyExists(obj: { [x: string]: undefined }, key: string) {
       if (obj[key] == undefined) {
         return false;
       } else {
@@ -177,10 +186,10 @@ if (typeof browser === "undefined") {
   var cookie = {
     getObj: function () {
       var cookie = document.cookie;
-      var cookieObj = {};
+      var cookieObj: { [key: string]: any } = {};
       if (!!cookie) {
         Array.prototype.forEach.call(cookie.split(";"), function (c) {
-          var array = [c][0].split("=").map(function (a) {
+          var array = [c][0].split("=").map(function (a: string) {
             return a.trim();
           });
           var key = ~c.indexOf("=") ? unescape(array[0]) : "";
@@ -194,7 +203,7 @@ if (typeof browser === "undefined") {
       }
       return cookieObj;
     },
-    getByName: function (name) {
+    getByName: function (name: string) {
       var ret = [];
       var cookieObj = this.getObj();
       if (cookieObj.hasOwnProperty(name)) {
@@ -204,46 +213,49 @@ if (typeof browser === "undefined") {
     },
   };
 
-  function isNumber(n) {
-    var num = parseInt(n, 10);
-    return !isNaN(parseInt(n)) && isFinite(n);
+  function isNumber(n: string) {
+    const intN = parseInt(n);
+    return !isNaN(intN) && isFinite(intN);
   }
 
   const returnTweetLabel = () => {
-    setInterval(function () {
-      if (
-        document.getElementsByClassName(
-          "css-175oi2r r-1d09ksm r-18u37iz r-1wbh5a2 r-1471scf"
-        ).length
-      ) {
-        var CurrentURL = location.href;
-        if (CurrentURL.includes("twitter.com/")) {
-          var question_index = CurrentURL.indexOf("?");
-          if (question_index > 0) {
-            var st_index = CurrentURL.indexOf("status/") + 7;
-            var q_index = CurrentURL.indexOf("?");
-            var status_id_str = CurrentURL.substring(st_index, q_index);
-            if (isNumber(status_id_str) && !(status_id_str == LastTweetID)) {
-              GetTweetSource(status_id_str);
-              LastTweetID = status_id_str;
-            }
-          } else {
-            var st_index = CurrentURL.indexOf("status/") + 7;
-            var status_id_str = CurrentURL.slice(st_index);
-            if (isNumber(status_id_str) && !(status_id_str == LastTweetID)) {
-              GetTweetSource(status_id_str);
-              LastTweetID = status_id_str;
-            }
+    if (
+      document.getElementsByClassName(
+        "css-175oi2r r-1d09ksm r-18u37iz r-1wbh5a2 r-1471scf"
+      ).length
+    ) {
+      var CurrentURL = location.href;
+      if (CurrentURL.includes("twitter.com/")) {
+        var question_index = CurrentURL.indexOf("?");
+        if (question_index > 0) {
+          var st_index = CurrentURL.indexOf("status/") + 7;
+          var q_index = CurrentURL.indexOf("?");
+          var status_id_str = CurrentURL.substring(st_index, q_index);
+          if (isNumber(status_id_str) && !(status_id_str == LastTweetID)) {
+            GetTweetSource(status_id_str);
+            LastTweetID = status_id_str;
+          }
+        } else {
+          var st_index = CurrentURL.indexOf("status/") + 7;
+          var status_id_str = CurrentURL.slice(st_index);
+          if (isNumber(status_id_str) && !(status_id_str == LastTweetID)) {
+            GetTweetSource(status_id_str);
+            LastTweetID = status_id_str;
           }
         }
-      } else {
-        LastTweetID = -1;
       }
-    }, 300);
+    } else {
+      LastTweetID = "-1";
+    }
   };
 
-  browser.storage.sync.get(["enabled"]).then((result) => {
+  chrome.storage.sync.get(["enabled"]).then((result: any) => {
     if (result.enabled) {
+      new MutationObserver(returnTweetLabel).observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+      
       returnTweetLabel();
     }
   });

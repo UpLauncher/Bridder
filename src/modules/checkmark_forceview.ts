@@ -1,7 +1,3 @@
-if (typeof browser === "undefined") {
-  var browser = chrome;
-}
-
 (function () {
   "use strict";
 
@@ -22,8 +18,8 @@ if (typeof browser === "undefined") {
     }
   }
 
-  function VerifiedBadgeWorker(parse_data) {
-    function isKeyExists(obj) {
+  function VerifiedBadgeWorker(parse_data: any) {
+    function isKeyExists(obj: any) {
       if (obj == undefined) {
         return false;
       } else {
@@ -32,7 +28,10 @@ if (typeof browser === "undefined") {
     }
 
     try {
-      document.getElementById("FSBB_base").remove();
+      const fsbbBase = document.getElementById("FSBB_base");
+      if (fsbbBase !== null) {
+        fsbbBase.remove();
+      }
     } catch (e) {}
 
     if (
@@ -82,7 +81,7 @@ if (typeof browser === "undefined") {
   }
 
   //Return Tweet Label
-  function GetVerifiedBadge(username) {
+  function GetVerifiedBadge(username: string) {
     const urlbase =
       "https://twitter.com/i/api/graphql/k5XapwcSikNsEsILW5FvgA/UserByScreenName";
     var query = encodeURI(
@@ -126,10 +125,10 @@ if (typeof browser === "undefined") {
   var cookie = {
     getObj: function () {
       var cookie = document.cookie;
-      var cookieObj = {};
+      var cookieObj: { [key: string]: any } = {};
       if (!!cookie) {
         Array.prototype.forEach.call(cookie.split(";"), function (c) {
-          var array = [c][0].split("=").map(function (a) {
+          var array = [c][0].split("=").map(function (a: string) {
             return a.trim();
           });
           var key = ~c.indexOf("=") ? unescape(array[0]) : "";
@@ -143,7 +142,7 @@ if (typeof browser === "undefined") {
       }
       return cookieObj;
     },
-    getByName: function (name) {
+    getByName: function (name: string) {
       var ret = [];
       var cookieObj = this.getObj();
       if (cookieObj.hasOwnProperty(name)) {
@@ -172,8 +171,13 @@ if (typeof browser === "undefined") {
     }, 300);
   };
 
-  browser.storage.sync.get(["enabled", "forceView"]).then((result) => {
+  chrome.storage.sync.get(["enabled", "forceView"]).then((result) => {
     if (result.enabled && result.forceView) {
+      new MutationObserver(showCheckmark).observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+
       showCheckmark();
     }
   });

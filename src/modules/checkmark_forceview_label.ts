@@ -1,14 +1,8 @@
-if (typeof browser === "undefined") {
-  var browser = chrome;
-}
-
 (function () {
   "use strict";
 
-  var lastName = "";
-
-  function VerifiedBadgeWorker(parse_data) {
-    function isKeyExists(obj) {
+  function VerifiedBadgeWorker(parse_data: any) {
+    function isKeyExists(obj: any) {
       if (obj == undefined) {
         return false;
       } else {
@@ -17,7 +11,10 @@ if (typeof browser === "undefined") {
     }
 
     try {
-      document.getElementById("FSBL_base").remove();
+      const element = document.getElementById("FSBL_base");
+      if (element !== null) {
+        element.remove();
+      }
     } catch (e) {}
 
     if (
@@ -36,7 +33,7 @@ if (typeof browser === "undefined") {
         );
         return;
       }
-      
+
       if (parse_data["data"]["user"]["result"]["is_blue_verified"] == false) {
         alert(
           "このユーザーは認証されていて、チェックマークが非表示になっています。"
@@ -52,7 +49,7 @@ if (typeof browser === "undefined") {
   }
 
   //Verified Badge Checker
-  function GetVerified(username) {
+  function GetVerified(username: string) {
     const urlbase =
       "https://twitter.com/i/api/graphql/k5XapwcSikNsEsILW5FvgA/UserByScreenName";
     var query = encodeURI(
@@ -96,10 +93,10 @@ if (typeof browser === "undefined") {
   var cookie = {
     getObj: function () {
       var cookie = document.cookie;
-      var cookieObj = {};
+      var cookieObj: { [key: string]: any } = {};
       if (!!cookie) {
         Array.prototype.forEach.call(cookie.split(";"), function (c) {
-          var array = [c][0].split("=").map(function (a) {
+          var array = [c][0].split("=").map(function (a: string) {
             return a.trim();
           });
           var key = ~c.indexOf("=") ? unescape(array[0]) : "";
@@ -113,7 +110,7 @@ if (typeof browser === "undefined") {
       }
       return cookieObj;
     },
-    getByName: function (name) {
+    getByName: function (name: string) {
       var ret = [];
       var cookieObj = this.getObj();
       if (cookieObj.hasOwnProperty(name)) {
@@ -124,56 +121,70 @@ if (typeof browser === "undefined") {
   };
 
   const showCheckmark = () => {
-    setInterval(function () {
-      if (
-        document.getElementsByClassName(
-          "css-175oi2r r-1loqt21 r-18u37iz r-ymttw5 r-1f1sjgu r-13qz1uu r-o7ynqc r-6416eg r-1ny4l3l"
-        ).length
-      ) {
-        document
-          .querySelectorAll(
-            ".css-175oi2r.r-1loqt21.r-18u37iz.r-ymttw5.r-1f1sjgu.r-13qz1uu.r-o7ynqc.r-6416eg.r-1ny4l3l"
-          )
-          .forEach((el) => {
-            if (
-              el.getAttribute("data-testid") == "block" &&
-              !el.hasAttribute("label_applied")
-            ) {
-              el.setAttribute("label_applied", "true");
-              var clone = el.cloneNode(true);
-              clone.querySelector("span").textContent = clone
-                .querySelector("span")
-                .textContent.replace("さんをブロック", "さんを確認");
-              clone
-                .querySelector("path")
-                .setAttribute(
-                  "d",
-                  "M8.52 3.59c.8-1.1 2.04-1.84 3.48-1.84s2.68.74 3.49 1.84c1.34-.21 2.74.14 3.76 1.16s1.37 2.42 1.16 3.77c1.1.8 1.84 2.04 1.84 3.48s-.74 2.68-1.84 3.48c.21 1.34-.14 2.75-1.16 3.77s-2.42 1.37-3.76 1.16c-.8 1.1-2.05 1.84-3.49 1.84s-2.68-.74-3.48-1.84c-1.34.21-2.75-.14-3.77-1.16-1.01-1.02-1.37-2.42-1.16-3.77-1.09-.8-1.84-2.04-1.84-3.48s.75-2.68 1.84-3.48c-.21-1.35.14-2.75 1.16-3.77s2.43-1.37 3.77-1.16Zm3.48.16c-.85 0-1.66.53-2.12 1.43l-.38.77-.82-.27c-.96-.32-1.91-.12-2.51.49-.6.6-.8 1.54-.49 2.51l.27.81-.77.39c-.9.46-1.43 1.27-1.43 2.12s.53 1.66 1.43 2.12l.77.39-.27.81c-.31.97-.11 1.91.49 2.51.6.61 1.55.81 2.51.49l.82-.27.38.77c.46.9 1.27 1.43 2.12 1.43s1.66-.53 2.12-1.43l.39-.77.82.27c.96.32 1.9.12 2.51-.49.6-.6.8-1.55.48-2.51l-.26-.81.76-.39c.91-.46 1.43-1.27 1.43-2.12s-.52-1.66-1.43-2.12l-.77-.39.27-.81c.32-.97.12-1.91-.48-2.51-.61-.61-1.55-.81-2.51-.49l-.82.27-.39-.77c-.46-.9-1.27-1.43-2.12-1.43Zm4.74 5.68-6.2 6.77-3.74-3.74 1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36Z"
-                );
-              el.parentElement.appendChild(clone);
-              clone.removeEventListener("click", function () {});
-              clone.addEventListener("click", function () {
-                GetVerified(
-                  clone
-                    .querySelector("span")
-                    .textContent.replace("さんを確認", "")
-                    .replace("@", "")
-                );
-              });
-              clone.addEventListener("mouseenter", function () {
-                clone.classList.add("r-1cuuowz");
-              });
-              clone.addEventListener("mouseleave", function () {
-                clone.classList.remove("r-1cuuowz");
-              });
+    if (
+      document.getElementsByClassName(
+        "css-175oi2r r-1loqt21 r-18u37iz r-ymttw5 r-1f1sjgu r-13qz1uu r-o7ynqc r-6416eg r-1ny4l3l"
+      ).length
+    ) {
+      document
+        .querySelectorAll(
+          ".css-175oi2r.r-1loqt21.r-18u37iz.r-ymttw5.r-1f1sjgu.r-13qz1uu.r-o7ynqc.r-6416eg.r-1ny4l3l"
+        )
+        .forEach((el) => {
+          if (
+            el.getAttribute("data-testid") == "block" &&
+            !el.hasAttribute("label_applied")
+          ) {
+            el.setAttribute("label_applied", "true");
+            var clone = el.cloneNode(true) as HTMLElement;
+            clone.querySelector("span")!.textContent = clone
+              .querySelector("span")!
+              .textContent!.replace("さんをブロック", "さんを確認");
+            clone.querySelector("span")!.textContent = clone
+              .querySelector("span")!
+              .textContent!.replace("さんのブロックを解除", "さんを確認");
+            clone
+              .querySelector("path")!
+              .setAttribute(
+                "d",
+                "M8.52 3.59c.8-1.1 2.04-1.84 3.48-1.84s2.68.74 3.49 1.84c1.34-.21 2.74.14 3.76 1.16s1.37 2.42 1.16 3.77c1.1.8 1.84 2.04 1.84 3.48s-.74 2.68-1.84 3.48c.21 1.34-.14 2.75-1.16 3.77s-2.42 1.37-3.76 1.16c-.8 1.1-2.05 1.84-3.49 1.84s-2.68-.74-3.48-1.84c-1.34.21-2.75-.14-3.77-1.16-1.01-1.02-1.37-2.42-1.16-3.77-1.09-.8-1.84-2.04-1.84-3.48s.75-2.68 1.84-3.48c-.21-1.35.14-2.75 1.16-3.77s2.43-1.37 3.77-1.16Zm3.48.16c-.85 0-1.66.53-2.12 1.43l-.38.77-.82-.27c-.96-.32-1.91-.12-2.51.49-.6.6-.8 1.54-.49 2.51l.27.81-.77.39c-.9.46-1.43 1.27-1.43 2.12s.53 1.66 1.43 2.12l.77.39-.27.81c-.31.97-.11 1.91.49 2.51.6.61 1.55.81 2.51.49l.82-.27.38.77c.46.9 1.27 1.43 2.12 1.43s1.66-.53 2.12-1.43l.39-.77.82.27c.96.32 1.9.12 2.51-.49.6-.6.8-1.55.48-2.51l-.26-.81.76-.39c.91-.46 1.43-1.27 1.43-2.12s-.52-1.66-1.43-2.12l-.77-.39.27-.81c.32-.97.12-1.91-.48-2.51-.61-.61-1.55-.81-2.51-.49l-.82.27-.39-.77c-.46-.9-1.27-1.43-2.12-1.43Zm4.74 5.68-6.2 6.77-3.74-3.74 1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36Z"
+              );
+            if (el.parentElement) {
+              el.parentElement.insertBefore(clone, el);
+              document.querySelector("div[label_applied=true]")?.remove();
+              el.parentElement.insertBefore(clone, el.nextSibling);
             }
-          });
-      }
-    }, 300);
+            clone.removeEventListener("click", function () {});
+            clone.addEventListener("click", function () {
+              const spanElement = clone.querySelector("span");
+              if (spanElement) {
+                const textContent = spanElement.textContent;
+                if (textContent) {
+                  const modifiedText = textContent
+                    .replace("さんを確認", "")
+                    .replace("@", "");
+                  GetVerified(modifiedText);
+                }
+              }
+            });
+            clone.addEventListener("mouseenter", function () {
+              clone.classList.add("r-1cuuowz");
+            });
+            clone.addEventListener("mouseleave", function () {
+              clone.classList.remove("r-1cuuowz");
+            });
+          }
+        });
+    }
   };
 
-  browser.storage.sync.get(["enabled", "forceView"]).then((result) => {
+  chrome.storage.sync.get(["enabled", "forceView"]).then((result) => {
     if (result.enabled && result.forceView) {
+      new MutationObserver(showCheckmark).observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+
       showCheckmark();
     }
   });

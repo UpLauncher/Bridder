@@ -1,0 +1,24 @@
+{
+  "name": "bridder",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^1.0.14",
+    "@types/chrome": "^0.0.262",
+    "@types/node": "^20.11.24",
+    "javascript-obfuscator": "^4.1.0",
+    "rollup-obfuscator": "^4.1.1",
+    "sass": "^1.71.1",
+    "typescript": "latest",
+    "vite": "latest"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.2.1"
+  }
+}
