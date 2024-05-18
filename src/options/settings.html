@@ -35,6 +35,11 @@
         <hr />
         <strong>チェックマークの設定</strong><br />
 
+        <p>
+          ヒント:
+          「チェックマークを非表示にしていても強制的に表示する」機能をお探しですか？X（旧Twitter）がチェックマークを非表示にする機能を廃止したため、削除しました。
+        </p>
+
         <input
           type="checkbox"
           id="white_checkmark"
@@ -62,14 +67,6 @@
           BlueユーザーのチェックマークをBlueのアイコンに変更します。</span
         ><br />
 
-        <input type="checkbox" id="forceView" name="forceView" checked />
-        <label for="forceView"
-          >チェックマークを非表示にしていても強制的に表示する</label
-        ><br />
-        <span class="desc"
-          >プロフィールページを開いたときのみ有効です。(改善予定)</span
-        ><br />
-
         <input type="checkbox" id="blue_delete" name="blue_delete" />
         <label for="blue_delete">チェックマークを削除する</label><br />
         <span class="desc"
@@ -77,17 +74,32 @@
         ><br />
 
         <hr />
+        <div>
+          <strong>快適なTwitterの利用(ベータ)</strong><br />
+          <input type="checkbox" id="hideTrend" name="hideTrend" />
+          <label for="hideTrend">トレンド(今どうしてる？)を隠す</label><br />
+          <span class="desc"
+            >トレンド(今どうしてる？)のセクションを隠します。</span
+          ><br />
+
+          <input type="checkbox" id="hideRecommend" name="hideRecommend" />
+          <label for="hideRecommend">おすすめタブを隠す</label><br />
+          <span class="desc"
+            >おすすめタブを削除し、デフォルトのタブをフォロー中にします。</span
+          ><br />
+
+          <input type="checkbox" id="hideEngagement" name="hideEngagement" />
+          <label for="hideEngagement">エンゲージメントを隠す</label><br />
+          <span class="desc"
+            >表示数(インプレッション)、いいね、リツイート、ブックマーク、返信の数を非表示にします。</span
+          ><br />
+        </div>
+
+        <hr />
         <strong>サイドバーの設定</strong><br />
-        <input
-          type="checkbox"
-          id="OptimizeSidebar"
-          name="OptimizeSidebar"
-          checked
-        />
-        <label for="OptimizeSidebar">サイドバーを最適化する</label><br />
-        <span class="desc"
-          >プレミアム+と認証済み組織をサイドバーから削除します。</span
-        ><br />
+        <p>
+          ヒント: サイドバー整理機能を探していますか？v2.1.6で廃止されました。
+        </p>
 
         <input type="checkbox" id="FeatureFlags" name="FeatureFlags" />
         <label for="FeatureFlags">機能メニューをもっと見るに移動</label><br />

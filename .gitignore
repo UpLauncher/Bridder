@@ -1,3 +1,4 @@
 bin/**
 dist/**
+firefox-dist/**
 node_modules

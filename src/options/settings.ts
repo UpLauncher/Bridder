@@ -7,10 +7,11 @@ window.addEventListener("DOMContentLoaded", () => {
   var whitemode = false;
   var blue_delete = false;
   var verifiedBlue = false;
-  var forceView = true;
   var optimizeMore = true;
-  var optimizeSidebar = true;
   var featureFlags = false;
+  var hideTrend = false;
+  var hideEngagement = false;
+  var hideRecommend = false;
   chrome.storage.sync
     .get([
       "text_mode",
@@ -20,11 +21,12 @@ window.addEventListener("DOMContentLoaded", () => {
       "tcoBypasser",
       "whitemode",
       "blue_delete",
-      "forceView",
       "verifiedBlue",
       "optimizeMore",
-      "optimizeSidebar",
       "featureFlags",
+      "hideTrend",
+      "hideEngagement",
+      "hideRecommend",
     ])
     .then((result) => {
       text_state = result.text_mode;
@@ -34,18 +36,101 @@ window.addEventListener("DOMContentLoaded", () => {
       tcoBypasser = result.tcoBypasser;
       whitemode = result.whitemode;
       blue_delete = result.blue_delete;
-      forceView = result.forceView;
       optimizeMore = result.optimizeMore;
       verifiedBlue = result.verifiedBlue;
-      optimizeSidebar = result.optimizeSidebar;
       featureFlags = result.featureFlags;
+      hideTrend = result.hideTrend;
+      hideEngagement = result.hideEngagement;
+      hideRecommend = result.hideRecommend;
 
-      console.log(optimizeSidebar)
+      console.log(hideEngagement);
 
       goNext();
     });
 
   function goNext() {
+    //the revamped odayaka twitter (Show Settings)
+    if (hideTrend) {
+      const hideTrendElement = document.querySelector(
+        "#hideTrend"
+      ) as HTMLInputElement;
+      if (hideTrendElement !== null) {
+        hideTrendElement.checked = true;
+      }
+    } else {
+      const hideTrendElement = document.querySelector(
+        "#hideTrend"
+      ) as HTMLInputElement;
+      if (hideTrendElement !== null) {
+        hideTrendElement.checked = false;
+      }
+    }
+
+    if (hideRecommend) {
+      const hideRecommendElement = document.querySelector(
+        "#hideRecommend"
+      ) as HTMLInputElement;
+      if (hideRecommendElement !== null) {
+        hideRecommendElement.checked = true;
+      }
+    } else {
+      const hideRecommendElement = document.querySelector(
+        "#hideRecommend"
+      ) as HTMLInputElement;
+      if (hideRecommendElement !== null) {
+        hideRecommendElement.checked = false;
+      }
+    }
+
+    if (hideEngagement) {
+      const hideEngagementElement = document.querySelector(
+        "#hideEngagement"
+      ) as HTMLInputElement;
+      if (hideEngagementElement !== null) {
+        hideEngagementElement.checked = true;
+      }
+    } else {
+      const hideEngagementElement = document.querySelector(
+        "#hideEngagement"
+      ) as HTMLInputElement;
+      if (hideEngagementElement !== null) {
+        hideEngagementElement.checked = false;
+      }
+    }
+
+    //the revamped odayaka twitter (event listener)
+    const hideEngagementElement = document.querySelector(
+      "#hideEngagement"
+    ) as HTMLInputElement;
+    if (hideEngagementElement !== null) {
+      hideEngagementElement.addEventListener("click", () => {
+        chrome.storage.sync.set({
+          hideEngagement: hideEngagementElement.checked,
+        });
+      });
+    }
+
+    const hideRecommendElement = document.querySelector(
+      "#hideRecommend"
+    ) as HTMLInputElement;
+    if (hideRecommendElement !== null) {
+      hideRecommendElement.addEventListener("click", () => {
+        chrome.storage.sync.set({
+          hideRecommend: hideRecommendElement.checked,
+        });
+      });
+    }
+
+    const hideTrendElement = document.querySelector(
+      "#hideTrend"
+    ) as HTMLInputElement;
+    if (hideTrendElement !== null) {
+      hideTrendElement.addEventListener("click", () => {
+        chrome.storage.sync.set({ hideTrend: hideTrendElement.checked });
+      });
+    }
+
+    //text, icon mode 
     if (text_state == false) {
       const textModeElement = document.querySelector(
         "#text_mode"
@@ -157,22 +242,6 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    if (forceView == false) {
-      const forceViewElement = document.querySelector(
-        "#forceView"
-      ) as HTMLInputElement;
-      if (forceViewElement !== null) {
-        forceViewElement.checked = false;
-      }
-    } else {
-      const forceViewElement = document.querySelector(
-        "#forceView"
-      ) as HTMLInputElement;
-      if (forceViewElement !== null) {
-        forceViewElement.checked = true;
-      }
-    }
-
     if (verifiedBlue == true) {
       const whiteCheckmarkElement = document.querySelector(
         "#white_checkmark"
@@ -237,22 +306,6 @@ window.addEventListener("DOMContentLoaded", () => {
       ) as HTMLInputElement;
       if (whitemodeElement !== null) {
         whitemodeElement.checked = false;
-      }
-    }
-
-    if (optimizeSidebar == true) {
-      const optimizeSidebarElement = document.querySelector(
-        "#OptimizeSidebar"
-      ) as HTMLInputElement;
-      if (optimizeSidebarElement !== null) {
-        optimizeSidebarElement.checked = true;
-      }
-    } else {
-      const optimizeSidebarElement = document.querySelector(
-        "#OptimizeSidebar"
-      ) as HTMLInputElement;
-      if (optimizeSidebarElement !== null) {
-        optimizeSidebarElement.checked = false;
       }
     }
 
@@ -373,15 +426,6 @@ window.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    const forceViewElement = document.querySelector(
-      "#forceView"
-    ) as HTMLInputElement;
-    if (forceViewElement !== null) {
-      forceViewElement.addEventListener("click", () => {
-        chrome.storage.sync.set({ forceView: forceViewElement.checked });
-      });
-    }
-
     if (verifiedBlueElement !== null) {
       verifiedBlueElement.addEventListener("click", () => {
         chrome.storage.sync.set({
@@ -408,17 +452,6 @@ window.addEventListener("DOMContentLoaded", () => {
       whitemodeElement.addEventListener("click", () => {
         chrome.storage.sync.set({
           whitemode: whitemodeElement.checked,
-        });
-      });
-    }
-
-    const optimizeSidebarElement = document.querySelector(
-      "#OptimizeSidebar"
-    ) as HTMLInputElement;
-    if (optimizeSidebarElement !== null) {
-      optimizeSidebarElement.addEventListener("click", () => {
-        chrome.storage.sync.set({
-          optimizeSidebar: optimizeSidebarElement.checked,
         });
       });
     }
