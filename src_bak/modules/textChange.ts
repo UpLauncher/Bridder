@@ -30,7 +30,7 @@
       });
 
     document
-      .querySelectorAll(".css-1jxf684.r-bcqeeo.r-1ttztb7.r-qvutc0.r-1tl8opc")
+      .querySelectorAll(".css-1qaijid.r-bcqeeo.r-qvutc0.r-1tl8opc")
       .forEach((container) => {
         if (
           container &&
@@ -39,7 +39,7 @@
         ) {
           container.textContent = container.textContent.replaceAll(
             " X Corp.",
-            ` Twitter Inc.\nBridder v2.2 (Ladybug)`
+            ` Twitter Inc.\nBridder v2.1.6 (Grasshopper)`
           );
         }
       });
@@ -154,22 +154,6 @@
           if (
             closestContainer &&
             closestContainer.getAttribute("role") == "heading"
-          ) {
-            return;
-          }
-        } catch {}
-
-        try {
-          if (
-            container.querySelector("textarea")
-          ) {
-            return;
-          }
-        } catch {}
-
-        try {
-          if (
-            container.closest("div")?.dataset.testid == "twitter-article-title"
           ) {
             return;
           }

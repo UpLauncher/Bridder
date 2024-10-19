@@ -13,16 +13,16 @@ export default defineConfig(() => {
     plugins: [
       crx({ manifest }),
     ],
-    build: {
-      rollupOptions: {
-        input: {
-          "installed": "src/other/installed.html",
-          "updated": "src/other/updated.html",
-          "updatedScript": "src/other/updated.ts",
-          "popup": "src/options/popup.ts",
-          "content": "src/content.ts"
-        }
-      },
-    },
+    // build: {
+    //   rollupOptions: {
+    //     input: {
+    //       "installed": "src/other/installed.html",
+    //       "updated": "src/other/updated.html",
+    //       "updatedScript": "src/other/updated.ts",
+    //       "popup": "src/options/popup.ts",
+    //       "content": "src/content.ts"
+    //     }
+    //   },
+    // },
   };
 });

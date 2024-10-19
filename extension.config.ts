@@ -31,7 +31,8 @@ export const manifest = defineManifest({
         "src/modules/textChange.ts",
         "src/modules/odayaka.ts",
         "src/modules/iconChange.ts",
-        "src/modules/checkmark_utility.ts"
+        "src/modules/checkmark_utility.ts",
+        "src/modules/easy_blocker.ts"
       ],
     },
   ],

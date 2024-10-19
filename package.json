@@ -2,7 +2,7 @@
   "name": "bridder",
   "displayName": "Bridder",
   "private": true,
-  "version": "2.1.6",
+  "version": "2.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,16 +10,13 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "^1.0.14",
+    "@crxjs/vite-plugin": "2.0.0-beta.25",
     "@types/chrome": "^0.0.262",
     "@types/node": "^20.11.24",
     "javascript-obfuscator": "^4.1.0",
     "rollup-obfuscator": "^4.1.1",
     "sass": "^1.71.1",
     "typescript": "latest",
-    "vite": "latest"
-  },
-  "dependencies": {
-    "@vitejs/plugin-react": "^4.2.1"
+    "vite": "^3.2.11"
   }
 }
